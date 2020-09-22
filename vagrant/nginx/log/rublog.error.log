@@ -1,0 +1,24 @@
+2020/09/22 09:43:10 [error] 23108#23108: *1 FastCGI sent in stderr: "PHP message: PHP Warning:  require(/app/web/../vendor/autoload.php): failed to open stream: No such file or directory in /app/web/index.php on line 7
+PHP message: PHP Stack trace:
+PHP message: PHP   1. {main}() /app/web/index.php:0
+PHP message: PHP Fatal error:  require(): Failed opening required '/app/web/../vendor/autoload.php' (include_path='.:/usr/share/php') in /app/web/index.php on line 7
+PHP message: PHP Stack trace:
+PHP message: PHP   1. {main}() /app/web/index.php:0" while reading response header from upstream, client: 192.168.1.26, server: rublog.local, request: "GET / HTTP/1.1", upstream: "fastcgi://unix:/var/run/php/php7.2-fpm.sock:", host: "rublog.local"
+2020/09/22 09:44:15 [error] 23108#23108: *7 FastCGI sent in stderr: "PHP message: PHP Warning:  require(/app/web/../vendor/autoload.php): failed to open stream: No such file or directory in /app/web/index.php on line 7
+PHP message: PHP Stack trace:
+PHP message: PHP   1. {main}() /app/web/index.php:0
+PHP message: PHP Fatal error:  require(): Failed opening required '/app/web/../vendor/autoload.php' (include_path='.:/usr/share/php') in /app/web/index.php on line 7
+PHP message: PHP Stack trace:
+PHP message: PHP   1. {main}() /app/web/index.php:0" while reading response header from upstream, client: 192.168.1.26, server: rublog.local, request: "GET / HTTP/1.1", upstream: "fastcgi://unix:/var/run/php/php7.2-fpm.sock:", host: "rublog.local"
+2020/09/22 09:44:17 [error] 23108#23108: *10 FastCGI sent in stderr: "PHP message: PHP Warning:  require(/app/web/../vendor/autoload.php): failed to open stream: No such file or directory in /app/web/index.php on line 7
+PHP message: PHP Stack trace:
+PHP message: PHP   1. {main}() /app/web/index.php:0
+PHP message: PHP Fatal error:  require(): Failed opening required '/app/web/../vendor/autoload.php' (include_path='.:/usr/share/php') in /app/web/index.php on line 7
+PHP message: PHP Stack trace:
+PHP message: PHP   1. {main}() /app/web/index.php:0" while reading response header from upstream, client: 192.168.1.26, server: rublog.local, request: "GET / HTTP/1.1", upstream: "fastcgi://unix:/var/run/php/php7.2-fpm.sock:", host: "rublog.local"
+2020/09/22 09:45:54 [error] 23108#23108: *13 FastCGI sent in stderr: "PHP message: PHP Warning:  require(/app/web/../vendor/autoload.php): failed to open stream: No such file or directory in /app/web/index.php on line 7
+PHP message: PHP Stack trace:
+PHP message: PHP   1. {main}() /app/web/index.php:0
+PHP message: PHP Fatal error:  require(): Failed opening required '/app/web/../vendor/autoload.php' (include_path='.:/usr/share/php') in /app/web/index.php on line 7
+PHP message: PHP Stack trace:
+PHP message: PHP   1. {main}() /app/web/index.php:0" while reading response header from upstream, client: 192.168.1.26, server: rublog.local, request: "GET / HTTP/1.1", upstream: "fastcgi://unix:/var/run/php/php7.2-fpm.sock:", host: "rublog.local"
