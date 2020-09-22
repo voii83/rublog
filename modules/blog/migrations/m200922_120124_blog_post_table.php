@@ -14,7 +14,7 @@ class m200922_120124_blog_post_table extends Migration
     {
         $this->createTable('{{%blog_post}}', [
             'id' => $this->primaryKey(),
-            'crated_at' => $this->dateTime(),
+            'created_at' => $this->dateTime()->notNull(),
             'created_by' => $this->integer()->notNull(),
             'published' => $this->boolean()->defaultValue(false),
             'title' => $this->string(255)->notNull(),
