@@ -12,16 +12,18 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'created_by')->textInput() ?>
+    <?= $form->field($model, 'postAuthor')->textInput(['value' => $author]) ?>
 
     <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'text')->textarea(['rows' => 6]) ?>
 
+    <?= $form->field($model, 'postTags')->textInput(['value' => $postTags]) ?>
+
     <?= $form->field($model, 'published')->checkbox() ?>
 
     <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

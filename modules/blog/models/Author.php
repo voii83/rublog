@@ -19,4 +19,24 @@ class Author extends ActiveRecord
     {
         return '{{%author}}';
     }
+
+
+    /**
+     * Save unique author
+     * @param string $author
+     * @return int
+     */
+    public static function saveAuthor($author) {
+        $result = Author::findOne(['name' => $author]);
+        if ($result) {
+            return $result->id;
+
+        } else {
+            $model = new Author();
+            $model->name = $author;
+            $model->save();
+
+            return $model->id;
+        }
+    }
 }

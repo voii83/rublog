@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $searchModel app\modules\blog\models\BlogPostSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Blog Posts';
+$this->title = 'Список постов';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="blog-post-index">
@@ -15,7 +15,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Create Blog Post', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Создать пост', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
@@ -26,12 +26,21 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
-            'crated_at',
-            'created_by',
-            'published',
+            [
+                'attribute' => 'created_at',
+                'label' => 'Дата создания',
+                'value' => function($data) {
+                    return $data->created_at;
+                }
+            ],
+            [
+                'attribute' => 'model.author',
+                'label' => 'Автор',
+                'value' => function($data) {
+                    return $data->author->name;
+                }
+            ],
             'title',
-            //'text:ntext',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

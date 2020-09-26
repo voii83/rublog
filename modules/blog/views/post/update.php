@@ -5,10 +5,10 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\modules\blog\models\BlogPost */
 
-$this->title = 'Update Blog Post: ' . $model->title;
-$this->params['breadcrumbs'][] = ['label' => 'Blog Posts', 'url' => ['index']];
+$this->title = 'Изменить пост: ' . $model->title;
+$this->params['breadcrumbs'][] = ['label' => 'Список постов', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->title, 'url' => ['view', 'id' => $model->id]];
-$this->params['breadcrumbs'][] = 'Update';
+$this->params['breadcrumbs'][] = 'Изменить';
 ?>
 <div class="blog-post-update">
 
@@ -16,6 +16,8 @@ $this->params['breadcrumbs'][] = 'Update';
 
     <?= $this->render('_form', [
         'model' => $model,
+        'postTags' => $postTags,
+        'author' => $author,
     ]) ?>
 
 </div>

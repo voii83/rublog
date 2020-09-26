@@ -19,4 +19,36 @@ class Tag extends ActiveRecord
     {
         return '{{%tag}}';
     }
+
+    /**
+     * Save unique tags
+     * @param array $tags
+     * @return array
+     */
+    public static function saveTags($tags) {
+
+        $result = [];
+        $tagName = [];
+
+        $tagsArray = array_filter(array_map('trim',explode(',',$tags)));
+        $tagsArray = array_unique($tagsArray);
+
+        $blogTag = Tag::find()->where(['name' => $tagsArray])->all();
+
+        foreach ($blogTag as $item) {
+            $tagName[] = $item->name;
+            $result[] = $item->id;
+        }
+
+        $blogPostTags = array_diff($tagsArray, $tagName);
+
+        foreach ($blogPostTags as $item) {
+            $blogTag = new Tag();
+            $blogTag->name = $item;
+            $blogTag->save();
+            $result[] = $blogTag->id;
+        }
+
+        return $result;
+    }
 }

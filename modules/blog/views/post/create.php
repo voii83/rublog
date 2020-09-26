@@ -5,8 +5,8 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\modules\blog\models\BlogPost */
 
-$this->title = 'Create Blog Post';
-$this->params['breadcrumbs'][] = ['label' => 'Blog Posts', 'url' => ['index']];
+$this->title = 'Содать пост';
+$this->params['breadcrumbs'][] = ['label' => 'Список постов', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="blog-post-create">
@@ -15,6 +15,8 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?= $this->render('_form', [
         'model' => $model,
+        'postTags' => $postTags,
+        'author' => $author,
     ]) ?>
 
 </div>

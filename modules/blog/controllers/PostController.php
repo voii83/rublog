@@ -2,6 +2,7 @@
 
 namespace app\modules\blog\controllers;
 
+use app\modules\blog\models\BlogPostTag;
 use Yii;
 use app\modules\blog\models\BlogPost;
 use app\modules\blog\models\BlogPostSearch;
@@ -52,8 +53,12 @@ class PostController extends Controller
      */
     public function actionView($id)
     {
+        $model = $this->findModel($id);
+        $postTags = implode(',', $model->postTags);
+
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $model,
+            'postTags' => $postTags,
         ]);
     }
 
@@ -65,13 +70,17 @@ class PostController extends Controller
     public function actionCreate()
     {
         $model = new BlogPost();
+        $postTags = '';
+        $author = '';
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($model->load(Yii::$app->request->post()) && $post_id = $model->savePost()) {
+            return $this->redirect(['view', 'id' => $post_id]);
         }
 
         return $this->render('create', [
             'model' => $model,
+            'postTags' => $postTags,
+            'author' => $author,
         ]);
     }
 
@@ -85,13 +94,17 @@ class PostController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $postTags = implode(',', $model->postTags);
+        $author = $model->postAuthor->name;
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($model->load(Yii::$app->request->post()) && $post_id = $model->savePost()) {
+            return $this->redirect(['view', 'id' => $post_id]);
         }
 
         return $this->render('update', [
             'model' => $model,
+            'postTags' => $postTags,
+            'author' => $author,
         ]);
     }
 
@@ -105,6 +118,7 @@ class PostController extends Controller
     public function actionDelete($id)
     {
         $this->findModel($id)->delete();
+        BlogPostTag::deleteAll(['blog_post_id' => $id]);
 
         return $this->redirect(['index']);
     }
@@ -118,7 +132,12 @@ class PostController extends Controller
      */
     protected function findModel($id)
     {
-        if (($model = BlogPost::findOne($id)) !== null) {
+        $model = BlogPost::query()
+            ->where(['id' => $id])
+            ->andWhere(['published' => true])
+            ->one();
+
+        if ($model !== null) {
             return $model;
         }
 

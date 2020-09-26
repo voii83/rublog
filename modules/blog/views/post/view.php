@@ -7,7 +7,7 @@ use yii\widgets\DetailView;
 /* @var $model app\modules\blog\models\BlogPost */
 
 $this->title = $model->title;
-$this->params['breadcrumbs'][] = ['label' => 'Blog Posts', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Список постов', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
@@ -16,11 +16,11 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->id], [
+        <?= Html::a('Изменить', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Удалить', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
+                'confirm' => 'Вы уверены, что хотите удалить этот элемент?',
                 'method' => 'post',
             ],
         ]) ?>
@@ -29,13 +29,54 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'id',
-            'crated_at',
-            'created_by',
-            'published',
-            'title',
-            'text:ntext',
+            [
+                'attribute' => 'created_at',
+                'label' => 'Дата создания',
+                'value' => function($data) {
+                    return $data->created_at;
+                }
+            ],
+
+            [
+                'attribute' => 'model.author',
+                'label' => 'Автор',
+                'value' => function($data) {
+                    return $data->author->name;
+                }
+            ],
+            [
+                'attribute' => 'title',
+                'label' => 'Заголовок',
+                'value' => function($data) {
+                    return $data->title;
+                }
+            ],
+            [
+                'attribute' => 'text',
+                'format' => 'html',
+                'label' => 'Текст',
+                'value' => function($data) {
+                    return $data->text;
+                }
+            ],
+            [
+                'attribute' => 'published',
+                'format' => 'raw',
+                'label' => false,
+                'value' => function($data){
+                    return $data->published ? '<span class="text-success">Опубликовано</span>' : '<span class="text-danger">Не опубликовано</span>';
+                }
+            ],
+            [
+                'attribute' => 'model.author',
+                'label' => 'Теги',
+                'value' => function($data) use ($postTags) {
+                    return $postTags;
+                }
+            ],
         ],
     ]) ?>
+
+    <p><?= Html::a('Список постов', ['index', 'id' => $model->id], ['class' => 'btn btn-primary']) ?></p>
 
 </div>
