@@ -13,70 +13,46 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="blog-post-view">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <h1><?= Html::encode($model->title) ?></h1>
+    <div class="row">
+        <div class="col-sm-6">
+            <h3><?= $model->author->name ?></h3>
+        </div>
+        <div class="col-sm-6">
+            <p class="text-right"><?= $model->created_at ?></p>
+        </div>
+    </div>
 
-    <p>
-        <?= Html::a('Изменить', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Удалить', ['delete', 'id' => $model->id], [
-            'class' => 'btn btn-danger',
-            'data' => [
-                'confirm' => 'Вы уверены, что хотите удалить этот элемент?',
-                'method' => 'post',
-            ],
-        ]) ?>
-    </p>
+    <div class="row">
+        <div class="col-sm-12">
+            <?= $model->text ?>
+        </div>
+    </div>
 
-    <?= DetailView::widget([
-        'model' => $model,
-        'attributes' => [
-            [
-                'attribute' => 'created_at',
-                'label' => 'Дата создания',
-                'value' => function($data) {
-                    return $data->created_at;
-                }
-            ],
+    <div class="row">
+        <div class="col-sm-12">
+            <?php foreach ($postTags as $postTag) : ?>
+                <span class="label label-info"><?= $postTag ?></span>
+            <?php endforeach; ?>
+        </div>
+    </div>
 
-            [
-                'attribute' => 'model.author',
-                'label' => 'Автор',
-                'value' => function($data) {
-                    return $data->author->name;
-                }
-            ],
-            [
-                'attribute' => 'title',
-                'label' => 'Заголовок',
-                'value' => function($data) {
-                    return $data->title;
-                }
-            ],
-            [
-                'attribute' => 'text',
-                'format' => 'html',
-                'label' => 'Текст',
-                'value' => function($data) {
-                    return $data->text;
-                }
-            ],
-            [
-                'attribute' => 'published',
-                'format' => 'raw',
-                'label' => false,
-                'value' => function($data){
-                    return $data->published ? '<span class="text-success">Опубликовано</span>' : '<span class="text-danger">Не опубликовано</span>';
-                }
-            ],
-            [
-                'attribute' => 'model.author',
-                'label' => 'Теги',
-                'value' => function($data) use ($postTags) {
-                    return $postTags;
-                }
-            ],
-        ],
-    ]) ?>
+    <hr>
 
-    <p><?= Html::a('Список постов', ['index', 'id' => $model->id], ['class' => 'btn btn-primary']) ?></p>
+    <div class="row">
+        <div class="col-sm-12">
+            <p>
+            <?= Html::a('Список постов', ['index', 'id' => $model->id], ['class' => 'btn btn-warning']) ?>
+            <?= Html::a('Изменить', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+            <?= Html::a('Удалить', ['delete', 'id' => $model->id], [
+                'class' => 'btn btn-danger',
+                'data' => [
+                    'confirm' => 'Вы уверены, что хотите удалить этот элемент?',
+                    'method' => 'post',
+                ],
+            ]) ?>
+            </p>
+        </div>
+    </div>
 
 </div>

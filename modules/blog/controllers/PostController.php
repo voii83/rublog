@@ -54,7 +54,7 @@ class PostController extends Controller
     public function actionView($id)
     {
         $model = $this->findModel($id);
-        $postTags = implode(',', $model->postTags);
+        $postTags = $model->postTags;
 
         return $this->render('view', [
             'model' => $model,
