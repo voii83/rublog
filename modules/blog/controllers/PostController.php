@@ -3,6 +3,7 @@
 namespace app\modules\blog\controllers;
 
 use app\modules\blog\models\BlogPostTag;
+use app\modules\blog\models\Comment;
 use Yii;
 use app\modules\blog\models\BlogPost;
 use app\modules\blog\models\BlogPostSearch;
@@ -55,10 +56,19 @@ class PostController extends Controller
     {
         $model = $this->findModel($id);
         $postTags = $model->postTags;
+        $commentsForm = new Comment();
+
+        if ($commentsForm->load(Yii::$app->request->post())) {
+            $commentsForm->saveComment($id);
+        }
+
+        $comments = Comment::find()->where(['post_id' => $id])->all();
 
         return $this->render('view', [
             'model' => $model,
             'postTags' => $postTags,
+            'comments' => $comments,
+            'commentsForm' => $commentsForm,
         ]);
     }
 

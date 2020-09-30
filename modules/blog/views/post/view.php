@@ -1,7 +1,8 @@
 <?php
 
 use yii\helpers\Html;
-use yii\widgets\DetailView;
+use yii\widgets\ActiveForm;
+use yii\widgets\Pjax;
 
 /* @var $this yii\web\View */
 /* @var $model app\modules\blog\models\BlogPost */
@@ -55,4 +56,52 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
     </div>
 
+    <hr>
+
+    <div class="row">
+        <div class="col-sm-12">
+            <h4>Комментарии</h4>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <?php yii\widgets\Pjax::begin(['id' => 'new_comment']) ?>
+            <?php $form = ActiveForm::begin(['options' => ['data-pjax' => true]]); ?>
+
+
+            <small>Добавить комментарий</small>
+            <?= $form->field($commentsForm, 'text')->textarea(['rows' => 3])->label(false) ?>
+            <div class="form-group">
+                <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>
+            </div>
+
+            <?php ActiveForm::end(); ?>
+            <?php Pjax::end(); ?>
+        </div>
+    </div>
+
+    <?php Pjax::begin(['id' => 'comments']) ?>
+    <div class="row">
+        <div class="col-sm-12">
+            <ul>
+            <?php foreach ($comments as $comment) : ?>
+                <li><?= $comment->text ?></li>
+            <?php endforeach; ?>
+            </ul>
+        </div>
+    </div>
+    <?php Pjax::end() ?>
+
 </div>
+
+<?php
+$script = <<< JS
+    $("document").ready(function(){
+        $("#new_comment").on("pjax:end", function() {
+            $.pjax.reload({container:"#comments"});
+            $('#comment-text').val('');
+        });
+    });
+JS;
+$this->registerJs($script, yii\web\View::POS_READY);
+?>
